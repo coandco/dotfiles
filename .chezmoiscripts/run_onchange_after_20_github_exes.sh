@@ -15,7 +15,7 @@ case "$cputype" in
     ;;
 esac
 
-if ! [ -f "~/.local/bin/cdebug" ]; then
+if ! [ -f ~/.local/bin/cdebug ]; then
   wget "https://github.com/iximiuz/cdebug/releases/download/v0.0.18/cdebug_${ostype}_${cputype}.tar.gz" -O cdebug.tar.gz
   if [ -f cdebug.tar.gz ]; then
     tar xvf cdebug.tar.gz -C ~/.local/bin cdebug
@@ -23,7 +23,7 @@ if ! [ -f "~/.local/bin/cdebug" ]; then
   fi
 fi
 
-if ! [ -x "~/.local/bin/doggo" ]; then
+if ! [ -x ~/.local/bin/doggo ]; then
   # uppercase the first letter
   doggo_os="${ostype^}"
   # doggo uses arm64/x86_64
@@ -40,7 +40,7 @@ if ! [ -x "~/.local/bin/doggo" ]; then
   fi
 fi
 
-if ! [ -f "~/.local/bin/fzf" ]; then
+if ! [ -f ~/.local/bin/fzf ]; then
   wget "https://github.com/junegunn/fzf/releases/download/v0.65.1/fzf-0.65.1-${ostype}_${cputype}.tar.gz" -O fzf.tar.gz
   if [ -f fzf.tar.gz ]; then
     tar xzf fzf.tar.gz -C ~/.local/bin fzf
@@ -48,18 +48,18 @@ if ! [ -f "~/.local/bin/fzf" ]; then
   fi
 fi
 
-if ! [ -f "~/.local/bin/jq" ]; then
+if ! [ -f ~/.local/bin/jq ]; then
   jq_os="$ostype"
   if [ "$jq_os" = "darwin" ]; then
     jq_os="macos"
   fi
   wget "https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-${jq_os}-${cputype}" -O ~/.local/bin/jq
-  if [ -f "~/.local/bin/jq" ]; then
+  if [ -f ~/.local/bin/jq ]; then
     chmod a+x ~/.local/bin/jq
   fi
 fi
 
-if ! [ -f "~/.local/bin/atuin" ]; then
+if ! [ -f ~/.local/bin/atuin ]; then
   atuin_os="$ostype"
   case "$atuin_os" in
     linux)
