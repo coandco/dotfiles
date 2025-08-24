@@ -7,25 +7,25 @@ if ! [ -x ~/.local/bin/uv ]; then
 fi
 
 if ! [ -x ~/.local/bin/xonsh ]; then
-  uv tool install "xonsh[full]" --with pip
+  ~/.local/bin/uv tool install "xonsh[full]" --with pip
 fi
 
 if ! [ -x ~/.local/bin/black ]; then
-  uv tool install black
+  ~/.local/bin/uv tool install black
 fi
 
 if ! [ -x ~/.local/bin/isort ]; then
-  uv tool install isort
+  ~/.local/bin/uv tool install isort
 fi
 
 if ! [ -x ~/.local/bin/ipython ]; then
-  uv tool install ipython --with pip
+  ~/.local/bin/uv tool install ipython --with pip
 fi
 
 if ! [ -x ~/.local/bin/yt-dlp ]; then
-  uv tool install yt-dlp[default]
+  ~/.local/bin/uv tool install yt-dlp[default]
 fi
 
 if ! [ -x ~/.local/bin/wormhole ]; then
-  uv tool install magic-wormhole
+  ~/.local/bin/uv tool install magic-wormhole
 fi
