@@ -85,6 +85,7 @@ if ! [ -f ~/.local/bin/atuin ]; then
   esac
   wget "https://github.com/atuinsh/atuin/releases/download/v18.8.0/atuin-${atuin_cpu}-${atuin_os}.tar.gz" -O atuin.tar.gz
   if [ -f atuin.tar.gz ]; then
+    mkdir -p tmp_atuin
     tar xzf atuin.tar.gz --strip-components=1 -C tmp_atuin
     mv tmp_atuin/atuin ~/.local/bin/
     rm -rf atuin.tar.gz tmp_atuin
