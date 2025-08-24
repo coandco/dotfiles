@@ -28,8 +28,8 @@ fi
 
 
 # Added by Toolbox App
-if [ -d ~/.local/share/JetBrains/Toolbox/scripts ]; then
-  export PATH="$PATH:/home/clint/.local/share/JetBrains/Toolbox/scripts"
+if [ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ]; then
+  export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
 fi
 
 if [ -f ~/.cache/uv/env ]; then

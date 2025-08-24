@@ -1,5 +1,21 @@
 alias pop=~/Projects/populi/it/dev_support/pop/pop
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
+
+
+# Added by Toolbox App
+if [ -d "$HOME/.local/share/JetBrains/Toolbox/scripts" ]; then
+  export PATH="$PATH:$HOME/.local/share/JetBrains/Toolbox/scripts"
+fi
+
 if [ -f ~/.cache/uv/env ]; then
   . ~/.cache/uv/env
 fi
