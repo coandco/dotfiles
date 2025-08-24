@@ -1,0 +1,12 @@
+#!/bin/bash
+
+{{- if eq .chezmoi.os "darwin" }}
+# Install homebrew if necessary
+if ! hash brew &> /dev/null; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+# Install base packages
+brew install bash nano curl wget less
+{{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian") }}
+sudo apt-get install bash nano curl wget less
+{{- end }}
