@@ -13,6 +13,9 @@ case "$cputype" in
   x86_64 | x86-64 | x64 | amd64)
     cputype=amd64
     ;;
+  *)
+    echo "Unsupported CPU type $cputype, skipping GitHub downloads"
+    exit 0
 esac
 
 # Load up homebrew paths if necessary to make sure wget is available
