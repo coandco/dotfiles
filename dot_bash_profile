@@ -1,0 +1,6 @@
+alias pop=~/Projects/populi/it/dev_support/pop/pop
+
+if [ -f ~/.cache/uv/env ]; then
+  . ~/.cache/uv/env
+fi
+

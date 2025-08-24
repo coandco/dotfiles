@@ -1,0 +1,8 @@
+sync_address = "https://atuin.apt.cranky.one"
+sync_frequency = "1m"
+inline_height = 20
+show_preview = true
+enter_accept = false
+
+[sync]
+records = true
