@@ -25,7 +25,7 @@ fi
 
 if ! [ -x ~/.local/bin/doggo ]; then
   # uppercase the first letter
-  doggo_os="${echo $ostype | awk '{$1=toupper(substr($1,0,1))substr($1,2)}1')"
+  doggo_os="$(echo $ostype | awk '{$1=toupper(substr($1,0,1))substr($1,2)}1')"
   # doggo uses arm64/x86_64
   doggo_cpu="$cputype"
   if [ "$doggo_cpu" = "amd64" ]; then
