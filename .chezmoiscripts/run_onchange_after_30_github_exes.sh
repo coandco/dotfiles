@@ -15,6 +15,11 @@ case "$cputype" in
     ;;
 esac
 
+# Load up homebrew paths if necessary to make sure wget is available
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 if ! [ -f ~/.local/bin/cdebug ]; then
   wget "https://github.com/iximiuz/cdebug/releases/download/v0.0.18/cdebug_${ostype}_${cputype}.tar.gz" -O cdebug.tar.gz
   if [ -f cdebug.tar.gz ]; then
