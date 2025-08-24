@@ -8,5 +8,6 @@ fi
 # Install base packages
 /opt/homebrew/bin/brew install bash nano wget less
 {{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian") }}
-sudo apt-get install --yes bash nano wget less
+# Install base packages (libffi-dev and libsodium-dev are needed build packages if no wheel available)
+sudo apt-get install --yes bash nano wget less libffi-dev libsodium-dev
 {{- end }}

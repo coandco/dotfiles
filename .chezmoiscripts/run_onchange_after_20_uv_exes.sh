@@ -27,5 +27,5 @@ if ! [ -x ~/.local/bin/yt-dlp ]; then
 fi
 
 if ! [ -x ~/.local/bin/wormhole ]; then
-  ~/.local/bin/uv tool install magic-wormhole
+  SODIUM_INSTALL=system ~/.local/bin/uv tool install magic-wormhole
 fi
