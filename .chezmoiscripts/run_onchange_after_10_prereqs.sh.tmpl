@@ -6,7 +6,7 @@ if ! hash brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 # Install base packages
-/opt/homebrew/bin/brew install bash nano curl wget less
+/opt/homebrew/bin/brew install bash nano wget less
 {{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian") }}
-sudo apt-get install --yes bash nano curl wget less
+sudo apt-get install --yes bash nano wget less
 {{- end }}
