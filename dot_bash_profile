@@ -4,3 +4,6 @@ if [ -f ~/.cache/uv/env ]; then
   . ~/.cache/uv/env
 fi
 
+if [ -x /opt/homebrew/bin/brew ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
