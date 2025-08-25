@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function is_url_valid() {
+function is_valid_url() {
   url="$1"
   retcode="$(curl --location --head --silent --write-out '%{http_code}' --output /dev/null "$url")"
   if [ "$retcode" = "200" ]; then
@@ -32,7 +32,7 @@ fi
 
 if ! [ -f ~/.local/bin/cdebug ]; then
   cdebug_url="https://github.com/iximiuz/cdebug/releases/download/v0.0.18/cdebug_${ostype}_${cputype}.tar.gz"
-  if is_url_valid "$cdebug_url"; then
+  if is_valid_url "$cdebug_url"; then
     wget "$cdebug_url" -O cdebug.tar.gz
     if [ -f cdebug.tar.gz ]; then
       tar xvf cdebug.tar.gz -C ~/.local/bin cdebug
