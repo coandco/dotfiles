@@ -27,5 +27,6 @@ if ! [ -x ~/.local/bin/yt-dlp ]; then
 fi
 
 if ! [ -x ~/.local/bin/wormhole ]; then
-  ~/.local/bin/uv tool install magic-wormhole
+  # On armv7 systems, wheels for pynacl aren't available, so we need to use the system libsodium
+  {{ if eq .chezmoi.arch "arm" }}SODIUM_INSTALL=system{{ end }} ~/.local/bin/uv tool install magic-wormhole
 fi

@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function is_url_valid() {
+  url="$1"
+  retcode="$(curl --location --head --silent --write-out '%{http_code}' --output /dev/null "$url")"
+  if [ "$retcode" = "200" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 mkdir -p ~/.local/bin
 
 ostype="$(uname -s | tr '[:upper:]' '[:lower:]')"
@@ -13,9 +23,6 @@ case "$cputype" in
   x86_64 | x86-64 | x64 | amd64)
     cputype=amd64
     ;;
-  *)
-    echo "Unsupported CPU type $cputype, skipping GitHub downloads"
-    exit 0
 esac
 
 # Load up homebrew paths if necessary to make sure wget is available
@@ -24,10 +31,15 @@ if [ -x /opt/homebrew/bin/brew ]; then
 fi
 
 if ! [ -f ~/.local/bin/cdebug ]; then
-  wget "https://github.com/iximiuz/cdebug/releases/download/v0.0.18/cdebug_${ostype}_${cputype}.tar.gz" -O cdebug.tar.gz
-  if [ -f cdebug.tar.gz ]; then
-    tar xvf cdebug.tar.gz -C ~/.local/bin cdebug
-    rm cdebug.tar.gz
+  cdebug_url="https://github.com/iximiuz/cdebug/releases/download/v0.0.18/cdebug_${ostype}_${cputype}.tar.gz"
+  if is_url_valid "$cdebug_url"; then
+    wget "$cdebug_url" -O cdebug.tar.gz
+    if [ -f cdebug.tar.gz ]; then
+      tar xvf cdebug.tar.gz -C ~/.local/bin cdebug
+      rm cdebug.tar.gz
+    fi
+  else
+    echo "No release of cdebug found for $ostype/$cputype, skipping"
   fi
 fi
 
@@ -39,20 +51,30 @@ if ! [ -x ~/.local/bin/doggo ]; then
   if [ "$doggo_cpu" = "amd64" ]; then
     doggo_cpu="x86_64"
   fi
-  wget "https://github.com/mr-karan/doggo/releases/download/v1.0.5/doggo_1.0.5_${doggo_os}_${doggo_cpu}.tar.gz" -O doggo.tar.gz
-  if [ -f doggo.tar.gz ]; then
-    mkdir tmp_doggo
-    tar xzf doggo.tar.gz --strip-components=1 -C tmp_doggo
-    mv tmp_doggo/doggo ~/.local/bin
-    rm -rf doggo.tar.gz tmp_doggo
+  doggo_url="https://github.com/mr-karan/doggo/releases/download/v1.0.5/doggo_1.0.5_${doggo_os}_${doggo_cpu}.tar.gz"
+  if is_valid_url "$doggo_url"; then
+    wget "$doggo_url" -O doggo.tar.gz
+    if [ -f doggo.tar.gz ]; then
+      mkdir tmp_doggo
+      tar xzf doggo.tar.gz --strip-components=1 -C tmp_doggo
+      mv tmp_doggo/doggo ~/.local/bin
+      rm -rf doggo.tar.gz tmp_doggo
+    fi
+  else
+    echo "No release of doggo found for $ostype/$cputype, skipping"
   fi
 fi
 
 if ! [ -f ~/.local/bin/fzf ]; then
-  wget "https://github.com/junegunn/fzf/releases/download/v0.65.1/fzf-0.65.1-${ostype}_${cputype}.tar.gz" -O fzf.tar.gz
-  if [ -f fzf.tar.gz ]; then
-    tar xzf fzf.tar.gz -C ~/.local/bin fzf
-    rm fzf.tar.gz
+  fzf_url="https://github.com/junegunn/fzf/releases/download/v0.65.1/fzf-0.65.1-${ostype}_${cputype}.tar.gz"
+  if is_valid_url "$fzf_url"; then
+    wget "$fzf_url" -O fzf.tar.gz
+    if [ -f fzf.tar.gz ]; then
+      tar xzf fzf.tar.gz -C ~/.local/bin fzf
+      rm fzf.tar.gz
+    fi
+  else
+    echo "No release of fzf found for $ostype/$cputype, skipping"
   fi
 fi
 
@@ -61,9 +83,14 @@ if ! [ -f ~/.local/bin/jq ]; then
   if [ "$jq_os" = "darwin" ]; then
     jq_os="macos"
   fi
-  wget "https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-${jq_os}-${cputype}" -O ~/.local/bin/jq
-  if [ -f ~/.local/bin/jq ]; then
-    chmod a+x ~/.local/bin/jq
+  jq_url="https://github.com/jqlang/jq/releases/download/jq-1.8.1/jq-${jq_os}-${cputype}"
+  if is_valid_url "$jq_url"; then
+    wget "$jq_url" -O ~/.local/bin/jq
+    if [ -f ~/.local/bin/jq ]; then
+      chmod a+x ~/.local/bin/jq
+    fi
+  else
+    echo "No release of jq found for $ostype/$cputype, skipping"
   fi
 fi
 
@@ -86,11 +113,16 @@ if ! [ -f ~/.local/bin/atuin ]; then
       atuin_cpu="aarch64"
       ;;
   esac
-  wget "https://github.com/atuinsh/atuin/releases/download/v18.8.0/atuin-${atuin_cpu}-${atuin_os}.tar.gz" -O atuin.tar.gz
-  if [ -f atuin.tar.gz ]; then
-    mkdir -p tmp_atuin
-    tar xzf atuin.tar.gz --strip-components=1 -C tmp_atuin
-    mv tmp_atuin/atuin ~/.local/bin/
-    rm -rf atuin.tar.gz tmp_atuin
+  atuin_url="https://github.com/atuinsh/atuin/releases/download/v18.8.0/atuin-${atuin_cpu}-${atuin_os}.tar.gz"
+  if is_valid_url "$atuin_url"; then
+    wget "$atuin_url" -O atuin.tar.gz
+    if [ -f atuin.tar.gz ]; then
+      mkdir -p tmp_atuin
+      tar xzf atuin.tar.gz --strip-components=1 -C tmp_atuin
+      mv tmp_atuin/atuin ~/.local/bin/
+      rm -rf atuin.tar.gz tmp_atuin
+    fi
+  else
+    echo "No release of atuin found for $ostype/$cputype, skipping"
   fi
 fi
