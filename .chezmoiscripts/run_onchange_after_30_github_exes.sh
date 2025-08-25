@@ -23,7 +23,7 @@ case "$cputype" in
   x86_64 | x86-64 | x64 | amd64)
     cputype=amd64
     ;;
-  armv7 | armv71)
+  armv7*)
     cputype=armv7
     ;;
 esac
