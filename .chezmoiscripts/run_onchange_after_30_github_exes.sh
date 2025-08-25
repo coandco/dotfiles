@@ -25,6 +25,7 @@ case "$cputype" in
     ;;
   armv7 | armv71)
     cputype=armv7
+    ;;
 esac
 
 # Load up homebrew paths if necessary to make sure wget is available
