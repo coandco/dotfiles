@@ -5,11 +5,11 @@ if ! hash brew &> /dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 # Install base packages
-/opt/homebrew/bin/brew install bash nano wget less
+/opt/homebrew/bin/brew install bash nano wget less poppler squashfs p7zip
 
 {{- else if and (eq .chezmoi.os "linux") (eq .chezmoi.osRelease.idLike "debian") }}
 # Install base packages
-sudo apt-get install --yes bash nano wget curl less
+sudo apt-get install --yes bash nano wget curl less catdoc poppler-utils squashfs-tools p7zip
 {{- if eq .chezmoi.arch "arm" }}
 # "arm" (i.e. armv7 i.e. not arm64) doesn't have python wheels for a couple of packages, so get prereqs
 sudo apt-get install libffi-dev libsodium-dev

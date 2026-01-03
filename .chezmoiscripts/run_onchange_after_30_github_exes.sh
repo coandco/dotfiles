@@ -58,10 +58,8 @@ if ! [ -x ~/.local/bin/doggo ]; then
   if is_valid_url "$doggo_url"; then
     wget "$doggo_url" -O doggo.tar.gz
     if [ -f doggo.tar.gz ]; then
-      mkdir tmp_doggo
-      tar xzf doggo.tar.gz --strip-components=1 -C tmp_doggo
-      mv tmp_doggo/doggo ~/.local/bin
-      rm -rf doggo.tar.gz tmp_doggo
+      tar xzf doggo.tar.gz -C ~/.local/bin --strip-components=1 --wildcards '*/doggo'
+      rm -rf doggo.tar.gz
     fi
   else
     echo "No release of doggo found for $ostype/$cputype, skipping"
@@ -120,12 +118,53 @@ if ! [ -f ~/.local/bin/atuin ]; then
   if is_valid_url "$atuin_url"; then
     wget "$atuin_url" -O atuin.tar.gz
     if [ -f atuin.tar.gz ]; then
-      mkdir -p tmp_atuin
-      tar xzf atuin.tar.gz --strip-components=1 -C tmp_atuin
-      mv tmp_atuin/atuin ~/.local/bin/
-      rm -rf atuin.tar.gz tmp_atuin
+      tar xzf atuin.tar.gz --strip-components=1 -C ~/.local/bin/ --wildcards '*/atuin'
+      rm -rf atuin.tar.gz
     fi
   else
     echo "No release of atuin found for $ostype/$cputype, skipping"
   fi
+fi
+
+if ! [ -f ~/.local/bin/pandoc ]; then
+  pandoc_ver="3.8.3"
+  pandoc_baseurl="https://github.com/jgm/pandoc/releases/download/${pandoc_ver}/pandoc-${pandoc_ver}-"
+  pandoc_slug="linux-amd64.tar.gz"
+  if [ "$ostype" == "darwin" ]; then
+    if [ "$cputype" == "arm64" ]; then
+      pandoc_slug="arm64-macOS.zip"
+    else
+      pandoc_slug="x86_64-macOS.zip"
+    fi
+  fi
+  pandoc_url="${pandoc_baseurl}${pandoc_slug}"
+  if is_valid_url "$pandoc_url"; then
+    wget "$pandoc_url" -O "$pandoc_slug"
+    case "$ostype" in
+      linux)
+        tar xzf "$pandoc_slug" -C ~/.local/bin --wildcards '*/pandoc' --strip-components=2
+        rm "$pandoc_slug"
+        ;;
+      darwin)
+        unzip -j "$pandoc_slug" '**/pandoc'
+        mv pandoc ~/.local/bin/
+        rm "$pandoc_slug"
+        ;;
+    esac
+  fi
+fi
+
+if ! [ -f ~/.local/bin/bsdtar ]; then
+  bsdtar_url="https://github.com/aspect-build/bsdtar-prebuilt/releases/download/v3.8.1-fix.1/tar_${ostype}_${cputype}"
+  if is_valid_url "$bsdtar_url"; then
+    wget "$bsdtar_url" -O ~/.local/bin/bsdtar
+    chmod a+x ~/.local/bin/bsdtar
+  fi
+fi
+
+if ! [ -f ~/.local/bin/lesspipe.sh ]; then
+  lesspipe_url="https://github.com/wofr06/lesspipe/archive/refs/tags/v2.22.zip"
+  wget "$lesspipe_url" -O lesspipe.zip
+  unzip -j -o lesspipe.zip '*/lesspipe.sh' '*/code2color' '*/lesscomplete' '*/vimcolor' -d ~/.local/bin
+  rm lesspipe.zip
 fi

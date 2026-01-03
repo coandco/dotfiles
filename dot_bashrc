@@ -152,3 +152,8 @@ alias pop=~/Projects/populi/it/dev_support/pop/pop
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
+
+if [ -f ~/.local/bin/lesspipe.sh ]; then
+  LESSOPEN="|${HOME}/.local/bin/lesspipe.sh %s"
+  export LESSOPEN
+fi
