@@ -147,6 +147,17 @@ if ! [ -f ~/.local/bin/wormhole ]; then
   fi
 fi
 
+if ! [ -f ~/.local/bin/fzf ]; then
+  fzf_url="https://github.com/junegunn/fzf/releases/download/v0.67.0/fzf-0.67.0-${ostype}_${cputype}.tar.gz"
+  if is_valid_url "$fzf_url"; then
+    wget "$fzf_url" -O fzf.tar.gz
+    tar xzf fzf.tar.gz -C ~/.local/bin/
+    rm fzf.tar.gz
+  else
+    echo "No release of fzf found for $ostype/$cputype, skipping"
+  fi
+fi
+
 if ! [ -f ~/.local/bin/pandoc ]; then
   pandoc_ver="3.8.3"
   pandoc_baseurl="https://github.com/jgm/pandoc/releases/download/${pandoc_ver}/pandoc-${pandoc_ver}-"
