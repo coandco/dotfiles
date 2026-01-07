@@ -126,6 +126,27 @@ if ! [ -f ~/.local/bin/atuin ]; then
   fi
 fi
 
+if ! [ -f ~/.local/bin/wormhole ]; then
+  if [ "$ostype" == "darwin" ]; then
+    wormhole_url="https://github.com/magic-wormhole/magic-wormhole.rs/releases/download/0.7.6/magic-wormhole-cli-aarch64-apple-darwin.tgz"
+  elif [ "$ostype" == "linux" ]; then
+    wormhole_url="https://github.com/magic-wormhole/magic-wormhole.rs/releases/download/0.7.6/magic-wormhole-cli-x86_64-unknown-linux-gnu.tgz"
+  else
+    wormhole_url="invalid"
+  fi
+
+  if is_valid_url "$wormhole_url"; then
+    wget "$wormhole_url" -O wormhole-rs.tar.gz
+    if [ -f wormhole-rs.tar.gz ]; then
+      tar xzf wormhole-rs.tar.gz
+      mv wormhole-rs ~/.local/bin/wormhole
+      rm wormhole-rs.tar.gz
+    fi
+  else
+    echo "No release of wormhole-rs found for $ostype, skipping"
+  fi
+fi
+
 if ! [ -f ~/.local/bin/pandoc ]; then
   pandoc_ver="3.8.3"
   pandoc_baseurl="https://github.com/jgm/pandoc/releases/download/${pandoc_ver}/pandoc-${pandoc_ver}-"
