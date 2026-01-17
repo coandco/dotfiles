@@ -200,3 +200,35 @@ if ! [ -f ~/.local/bin/lesspipe.sh ]; then
   unzip -j -o lesspipe.zip '*/lesspipe.sh' '*/code2color' '*/lesscomplete' '*/vimcolor' -d ~/.local/bin
   rm lesspipe.zip
 fi
+
+if ! [ -f ~/.local/bin/rg ]; then
+  rg_ver="15.1.0"
+  [[ $cputype = "amd64" ]] && rg_cputype="x86_64" || rg_cputype="aarch64"
+  [[ $ostype = "linux" ]] && rg_ostype="unknown-linux-musl" || rg_ostype="apple-darwin"
+  rg_url="https://github.com/BurntSushi/ripgrep/releases/download/${rg_ver}/ripgrep-${rg_ver}-${rg_cputype}-${rg_ostype}.tar.gz"
+  if is_valid_url "$rg_url"; then
+    wget "$rg_url" -O ripgrep.tar.gz
+    tar xzf ripgrep.tar.gz -C ~/.local/bin --strip-components=1 --wildcards '*/rg'
+    rm ripgrep.tar.gz
+  fi
+fi
+
+if ! [ -f ~/.local/bin/psc ]; then
+  psc_ver="0.3.2"
+  psc_url="https://github.com/loresuso/psc/releases/download/v${psc_ver}/psc_${psc_ver}_${ostype}_${cputype}.tar.gz"
+  if is_valid_url "$psc_url"; then
+    wget "$psc_url" -O psc.tar.gz
+    tar xzf psc.tar.gz -C ~/.local/bin 'psc'
+    rm psc.tar.gz
+  fi
+fi
+
+if ! [ -f ~/.local/bin/soar ]; then
+  soar_ver="0.10.2"
+  [[ $cputype = "amd64" ]] && soar_cputype="x86_64" || soar_cputype="aarch64"
+  soar_url="https://github.com/pkgforge/soar/releases/download/v${soar_ver}/soar-${soar_cputype}-${ostype}"
+  if is_valid_url "$soar_url"; then
+    wget "$soar_url" -O ~/.local/bin/soar
+    chmod a+x ~/.local/bin/soar
+  fi
+fi
