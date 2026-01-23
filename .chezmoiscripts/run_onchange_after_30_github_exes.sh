@@ -58,7 +58,8 @@ if ! [ -x ~/.local/bin/doggo ]; then
   if is_valid_url "$doggo_url"; then
     wget "$doggo_url" -O doggo.tar.gz
     if [ -f doggo.tar.gz ]; then
-      tar xzf doggo.tar.gz -C ~/.local/bin --strip-components=1 --wildcards '*/doggo'
+      doggo_loc=$(tar -tf doggo.tar.gz | grep '/doggo$' | head -n 1)
+      tar xzf doggo.tar.gz -C ~/.local/bin --strip-components=1 "$doggo_loc"
       rm -rf doggo.tar.gz
     fi
   else
@@ -118,7 +119,8 @@ if ! [ -f ~/.local/bin/atuin ]; then
   if is_valid_url "$atuin_url"; then
     wget "$atuin_url" -O atuin.tar.gz
     if [ -f atuin.tar.gz ]; then
-      tar xzf atuin.tar.gz --strip-components=1 -C ~/.local/bin/ --wildcards '*/atuin'
+      atuin_loc=$(tar -tf atuin.tar.gz | grep '/atuin$' | head -n 1)
+      tar xzf atuin.tar.gz --strip-components=1 -C ~/.local/bin/ "$atuin_loc"
       rm -rf atuin.tar.gz
     fi
   else
@@ -174,7 +176,8 @@ if ! [ -f ~/.local/bin/pandoc ]; then
     wget "$pandoc_url" -O "$pandoc_slug"
     case "$ostype" in
       linux)
-        tar xzf "$pandoc_slug" -C ~/.local/bin --wildcards '*/pandoc' --strip-components=2
+        pandoc_loc=$(tar -tf "$pandoc_slug" | grep '/pandoc$' | head -n 1)
+        tar xzf "$pandoc_slug" -C ~/.local/bin --strip-components=2 "$pandoc_loc"
         rm "$pandoc_slug"
         ;;
       darwin)
@@ -208,7 +211,8 @@ if ! [ -f ~/.local/bin/rg ]; then
   rg_url="https://github.com/BurntSushi/ripgrep/releases/download/${rg_ver}/ripgrep-${rg_ver}-${rg_cputype}-${rg_ostype}.tar.gz"
   if is_valid_url "$rg_url"; then
     wget "$rg_url" -O ripgrep.tar.gz
-    tar xzf ripgrep.tar.gz -C ~/.local/bin --strip-components=1 --wildcards '*/rg'
+    rg_loc=$(tar -tf ripgrep.tar.gz | grep '/rg$' | head -n 1)
+    tar xzf ripgrep.tar.gz -C ~/.local/bin --strip-components=1 "$rg_loc"
     rm ripgrep.tar.gz
   fi
 fi
