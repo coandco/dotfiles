@@ -232,3 +232,13 @@ if ! [ -f ~/.local/bin/soar ]; then
     chmod a+x ~/.local/bin/soar
   fi
 fi
+
+if ! [ -f ~/.local/bin/whosthere ]; then
+  wt_ver="0.2.0"
+  wt_url="https://github.com/ramonvermeulen/whosthere/releases/download/v${wt_ver}/whosthere_${wt_ver}_${ostype}_${cputype}.tar.gz"
+  if is_valid_url "$wt_url"; then
+    wget "$wt_url" -O wt.tar.gz
+    tar xzf wt.tar.gz -C ~/.local/bin 'whosthere'
+    rm wt.tar.gz
+  fi
+fi
