@@ -26,12 +26,6 @@ if ! [ -x ~/.local/bin/yt-dlp ]; then
   ~/.local/bin/uv tool install yt-dlp[default]
 fi
 
-# Originally had this as a python venv, but switched to use magic-wormhole-rs as a static binary
-#if ! [ -x ~/.local/bin/wormhole ]; then
-#  # On armv7 systems, wheels for pynacl aren't available, so we need to use the system libsodium
-#  {{ if eq .chezmoi.arch "arm" }}SODIUM_INSTALL=system{{ end }} ~/.local/bin/uv tool install magic-wormhole
-#fi
-
 if ! [ -x ~/.local/bin/xlsx2csv ]; then
   ~/.local/bin/uv tool install xlsx2csv
 fi
