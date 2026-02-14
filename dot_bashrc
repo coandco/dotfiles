@@ -114,6 +114,16 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+  export PATH="$HOME/bin:$PATH"
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/.local/bin" ] ; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 [[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
 
 if [ -f ~/.local/share/blesh/ble.sh ]; then
@@ -123,16 +133,6 @@ fi
 
 if hash atuin &> /dev/null; then
   eval "$(atuin init bash --disable-up-arrow)"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-  export PATH="$HOME/bin:$PATH"
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/.local/bin" ] ; then
-  export PATH="$HOME/.local/bin:$PATH"
 fi
 
 # Added by Toolbox App
