@@ -34,7 +34,7 @@ if [ -x /opt/homebrew/bin/brew ]; then
 fi
 
 if ! [ -f ~/.local/bin/cdebug ]; then
-  cdebug_url="https://github.com/iximiuz/cdebug/releases/download/v0.0.18/cdebug_${ostype}_${cputype}.tar.gz"
+  cdebug_url="https://github.com/iximiuz/cdebug/releases/download/v0.0.19/cdebug_${ostype}_${cputype}.tar.gz"
   if is_valid_url "$cdebug_url"; then
     wget "$cdebug_url" -O cdebug.tar.gz
     if [ -f cdebug.tar.gz ]; then
@@ -54,7 +54,7 @@ if ! [ -x ~/.local/bin/doggo ]; then
   if [ "$doggo_cpu" = "amd64" ]; then
     doggo_cpu="x86_64"
   fi
-  doggo_url="https://github.com/mr-karan/doggo/releases/download/v1.0.5/doggo_1.0.5_${doggo_os}_${doggo_cpu}.tar.gz"
+  doggo_url="https://github.com/mr-karan/doggo/releases/download/v1.1.14/doggo_1.1.14_${doggo_os}_${doggo_cpu}.tar.gz"
   if is_valid_url "$doggo_url"; then
     wget "$doggo_url" -O doggo.tar.gz
     if [ -f doggo.tar.gz ]; then
@@ -68,7 +68,7 @@ if ! [ -x ~/.local/bin/doggo ]; then
 fi
 
 if ! [ -f ~/.local/bin/fzf ]; then
-  fzf_url="https://github.com/junegunn/fzf/releases/download/v0.65.1/fzf-0.65.1-${ostype}_${cputype}.tar.gz"
+  fzf_url="https://github.com/junegunn/fzf/releases/download/v0.67.0/fzf-0.67.0-${ostype}_${cputype}.tar.gz"
   if is_valid_url "$fzf_url"; then
     wget "$fzf_url" -O fzf.tar.gz
     if [ -f fzf.tar.gz ]; then
@@ -115,7 +115,7 @@ if ! [ -f ~/.local/bin/atuin ]; then
       atuin_cpu="aarch64"
       ;;
   esac
-  atuin_url="https://github.com/atuinsh/atuin/releases/download/v18.8.0/atuin-${atuin_cpu}-${atuin_os}.tar.gz"
+  atuin_url="https://github.com/atuinsh/atuin/releases/download/v18.12.1/atuin-${atuin_cpu}-${atuin_os}.tar.gz"
   if is_valid_url "$atuin_url"; then
     wget "$atuin_url" -O atuin.tar.gz
     if [ -f atuin.tar.gz ]; then
@@ -228,7 +228,7 @@ if ! [ -f ~/.local/bin/psc ]; then
 fi
 
 if ! [ -f ~/.local/bin/soar ]; then
-  soar_ver="0.10.2"
+  soar_ver="0.11.0"
   [[ $cputype = "amd64" ]] && soar_cputype="x86_64" || soar_cputype="aarch64"
   soar_url="https://github.com/pkgforge/soar/releases/download/v${soar_ver}/soar-${soar_cputype}-${ostype}"
   if is_valid_url "$soar_url"; then
@@ -238,7 +238,7 @@ if ! [ -f ~/.local/bin/soar ]; then
 fi
 
 if ! [ -f ~/.local/bin/whosthere ]; then
-  wt_ver="0.2.0"
+  wt_ver="0.6.1"
   wt_url="https://github.com/ramonvermeulen/whosthere/releases/download/v${wt_ver}/whosthere_${wt_ver}_${ostype}_${cputype}.tar.gz"
   if is_valid_url "$wt_url"; then
     wget "$wt_url" -O wt.tar.gz
