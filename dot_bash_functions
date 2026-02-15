@@ -1,0 +1,41 @@
+#!/bin/bash
+path_needs_dir() {
+    local target_dir="$1"
+
+    # Check if argument was provided
+    if [[ -z "$target_dir" ]]; then
+        echo "Usage: path_needs_dir <directory>" >&2
+        return 2
+    fi
+
+    # Check if the target directory exists
+    if [ ! -d "$target_dir" ]; then
+        return 1
+    fi
+
+    # Get the real path of the target directory
+    local target_realpath
+    target_realpath=$(realpath "$target_dir" 2>/dev/null) || return 1
+
+    # Split PATH by colons and check each directory
+    local IFS=':'
+    local path_dir
+    for path_dir in $PATH; do
+        # Skip empty entries
+        [ -z "$path_dir" ] && continue
+
+        # Skip if path directory doesn't exist
+        [ ! -d "$path_dir" ] && continue
+
+        # Get real path of the PATH directory
+        local path_realpath
+        path_realpath=$(realpath "$path_dir" 2>/dev/null) || continue
+
+        # Compare real paths
+        if [ "$target_realpath" == "$path_realpath" ]; then
+            return 1  # Found match - return false
+        fi
+    done
+
+    return 0  # No match found - return true
+}
