@@ -10,6 +10,11 @@ function is_valid_url() {
   fi
 }
 
+if ! hash curl &> /dev/null || ! hash wget &> /dev/null; then
+  echo "Installing github exes requires both curl and wget.  Aborting."
+  exit 1
+fi
+
 mkdir -p ~/.local/bin
 
 ostype="$(uname -s | tr '[:upper:]' '[:lower:]')"

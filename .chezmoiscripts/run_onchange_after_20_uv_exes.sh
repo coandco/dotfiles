@@ -4,6 +4,10 @@ mkdir -p ~/.local/bin
 
 if ! [ -x ~/.local/bin/uv ]; then
   UV_NO_MODIFY_PATH=1 UV_INSTALL_DIR="$HOME/.local/bin" ~/.local/bin/uv-installer
+  if [ "$?" != "0" ]; then
+    echo "Failed to install uv.  Aborting."
+    exit 1
+  fi
 fi
 
 if ! [ -x ~/.local/bin/xonsh ]; then
