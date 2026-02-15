@@ -12,12 +12,13 @@ is_apt_package_installed() {
   return $?
 }
 
-needed_packages() {
+needed_pkgs() {
   local pkg_list="$1"
   local absent_pkgs=()
   [[ "$OSTYPE" == "darwin"* ]] && pkgmgr="brew" || pkgmgr="apt"
   for pkg in $pkg_list; do
-    if ! "is_$pkgmgr_package_installed" "$pkg"; then
+    is_installed_func="is_${pkgmgr}_package_installed"
+    if ! "$is_installed_func" "$pkg"; then
       absent_pkgs+=("$pkg")
     fi
   done
