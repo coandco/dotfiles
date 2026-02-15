@@ -42,7 +42,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 
 # On Debian-based systems, install base packages with apt-get
 elif [[ "$OSTYPE" == "linux-gnu"* ]] && hash apt-get &> /dev/null; then
-  apt_pkgs=(nano wget curl less catdoc poppler-utils squashfs-tools p7zip pigz)
+  apt_pkgs=(nano wget curl procps less catdoc poppler-utils squashfs-tools p7zip pigz)
   # "arm" (i.e. armv7 i.e. not arm64) doesn't have python wheels for a couple of packages, so get prereqs
   if [[ "$(uname -m)" == "arm"* ]]; then
     apt_pkgs+=(libffi-dev libsodium-dev)
