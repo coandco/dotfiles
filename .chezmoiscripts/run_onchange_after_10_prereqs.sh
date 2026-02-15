@@ -37,7 +37,7 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   if [ -n "$absent_pkgs" ]; then
     echo "Missing brew packages.  To install, run '/opt/homebrew/bin/brew install $absent_pkgs'"
     echo "Press any key to continue..."
-    read -n 1 -s -r -p
+    read -n 1 -s -r
   fi
 
 # On Debian-based systems, install base packages with apt-get
@@ -51,6 +51,6 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]] && hash apt-get &> /dev/null; then
   if [ -n "$absent_pkgs" ]; then
     echo "Missing apt packages.  To install, run 'sudo apt-get install $absent_pkgs'"
     echo "Press any key to continue..."
-    read -n 1 -s -r -p
+    read -n 1 -s -r
   fi
 fi
