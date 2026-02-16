@@ -204,10 +204,14 @@ if ! [ -f ~/.local/bin/bsdtar ]; then
 fi
 
 if ! [ -f ~/.local/bin/lesspipe.sh ]; then
-  lesspipe_url="https://github.com/wofr06/lesspipe/archive/refs/tags/v2.22.zip"
-  wget "$lesspipe_url" -O lesspipe.zip
-  unzip -j -o lesspipe.zip '*/lesspipe.sh' '*/code2color' '*/lesscomplete' '*/vimcolor' -d ~/.local/bin
-  rm lesspipe.zip
+  lesspipe_url="https://github.com/wofr06/lesspipe/archive/refs/tags/v2.22.tar.gz"
+  wget "$lesspipe_url" -O lesspipe.tar.gz
+  lesspipe_loc=$(tar -tf lesspipe.tar.gz | grep '/lesspipe.sh$' | head -n 1)
+  code2color_loc=$(tar -tf lesspipe.tar.gz | grep '/code2color$' | head -n 1)
+  lesscomplete_loc=$(tar -tf lesspipe.tar.gz | grep '/lesscomplete$' | head -n 1)
+  vimcolor_loc=$(tar -tf lesspipe.tar.gz | grep '/vimcolor$' | head -n 1)
+  tar xzf lesspipe.tar.gz --strip-components=1 -C ~/.local/bin "$lesspipe_loc" "$code2color_loc" "$lesscomplete_loc" "$vimcolor_loc"
+  rm lesspipe.tar.gz
 fi
 
 if ! [ -f ~/.local/bin/rg ]; then
