@@ -59,7 +59,8 @@ if ! [ -x ~/.local/bin/doggo ]; then
   if [ "$doggo_cpu" = "amd64" ]; then
     doggo_cpu="x86_64"
   fi
-  doggo_url="https://github.com/mr-karan/doggo/releases/download/v1.1.14/doggo_1.1.14_${doggo_os}_${doggo_cpu}.tar.gz"
+  doggo_url="https://github.com/mr-karan/doggo/releases/download/v1.1.4/doggo_1.1.4_${doggo_os}_${doggo_cpu}.tar.gz"
+  echo "doggo_url is $url"
   if is_valid_url "$doggo_url"; then
     wget "$doggo_url" -O doggo.tar.gz
     if [ -f doggo.tar.gz ]; then
